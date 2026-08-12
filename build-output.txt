@@ -1,0 +1,40 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< net.codejava:Application >----------------------
+[INFO] Building Application 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ Application ---
+[INFO] Deleting E:\FPT\Java\Application\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ Application ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ Application ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 7 source files with javac [debug parameters release 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ Application ---
+[INFO] skip non existing resourceDirectory E:\FPT\Java\Application\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ Application ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ Application ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ Application ---
+[INFO] Building jar: E:\FPT\Java\Application\target\Application-0.0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.5:repackage (repackage) @ Application ---
+[INFO] Replacing main artifact E:\FPT\Java\Application\target\Application-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to E:\FPT\Java\Application\target\Application-0.0.1-SNAPSHOT.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  9.115 s
+[INFO] Finished at: 2026-08-12T21:57:10+07:00
+[INFO] ------------------------------------------------------------------------
