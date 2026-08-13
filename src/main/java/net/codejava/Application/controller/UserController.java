@@ -1,24 +1,59 @@
 package net.codejava.Application.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.codejava.Application.identityservices.dto.request.UserCreationRequest;
+import net.codejava.Application.identityservices.dto.request.UserUpdateRequest;
 import net.codejava.Application.identityservices.entity.User;
 import net.codejava.Application.identityservices.services.UserServices;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+
+
 
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
-    @Autowired
-    private UserServices userServices ;
+    private UserServices userServices;
 
-     @PostMapping("/users")
+    public UserController(UserServices userServices) {
+        this.userServices = userServices;
+    }
+
+     @PostMapping("")
      User createUser(@RequestBody UserCreationRequest request) {
         return userServices.createRequest(request) ;
-
      } 
+
+     @GetMapping("")
+     List<User> getUsers() {
+      return userServices.getUsers() ;
+     }
+     
+     @GetMapping("/{userId}")
+     User getUser(@PathVariable String userId) {
+         return userServices.getUser(userId);
+     }
+
+     @PutMapping("/{userId}")
+     User updateUser(@RequestBody UserUpdateRequest request , @PathVariable String userId) {
+         return userServices.updateUser(request, userId) ;  
+     }
+     
+     @DeleteMapping("/{userId}")
+     void deleteUser(@PathVariable String userId) {
+         userServices.deleteUser(userId) ;
+     }
+     
      
 }

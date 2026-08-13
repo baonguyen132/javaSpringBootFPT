@@ -1,9 +1,12 @@
 package net.codejava.Application.identityservices.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import net.codejava.Application.identityservices.dto.request.UserCreationRequest;
+import net.codejava.Application.identityservices.dto.request.UserUpdateRequest;
 import net.codejava.Application.identityservices.entity.User;
 import net.codejava.Application.identityservices.repository.UserRepository;
 
@@ -11,6 +14,10 @@ import net.codejava.Application.identityservices.repository.UserRepository;
 public class UserServices {
     @Autowired
     private UserRepository userRepository ;
+
+    public UserServices(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User createRequest(UserCreationRequest request) {
 
@@ -22,5 +29,28 @@ public class UserServices {
 
         return userRepository.save(user);
 
-    } 
+    }
+    
+    public List<User> getUsers() {
+        return userRepository.findAll() ;
+    }
+
+    public User getUser(String userId) {
+        return userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+
+    }
+    public User updateUser(UserUpdateRequest request, String userId) {
+        User user = getUser(userId) ;
+
+        user.setName(request.getName());
+        user.setPassword(request.getPassword());
+        user.setDob(request.getDob());
+
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(String userId) {
+        userRepository.deleteById(userId);
+    }
 }   
