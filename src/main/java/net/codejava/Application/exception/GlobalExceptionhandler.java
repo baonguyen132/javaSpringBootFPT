@@ -8,12 +8,19 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import net.codejava.Application.dto.request.APIResponse;
+
 @ControllerAdvice
 public class GlobalExceptionhandler {
 
     @ExceptionHandler(value = RuntimeException.class)
-    ResponseEntity<String> handlingRuntimeException(RuntimeException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
+    ResponseEntity<APIResponse<String>> handlingRuntimeException(RuntimeException e) {
+
+        APIResponse<String> response = new APIResponse<>() ;
+        response.setCode(400);
+        response.setMessage(e.getMessage());
+
+        return ResponseEntity.badRequest().body(response);
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

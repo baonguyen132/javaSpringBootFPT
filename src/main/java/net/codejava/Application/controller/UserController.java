@@ -3,6 +3,7 @@ package net.codejava.Application.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import net.codejava.Application.dto.request.APIResponse;
 import net.codejava.Application.dto.request.UserCreationRequest;
 import net.codejava.Application.dto.request.UserUpdateRequest;
 import net.codejava.Application.entity.User;
@@ -38,8 +39,13 @@ public class UserController {
      } 
 
      @GetMapping
-     List<User> getUsers() {
-      return userServices.getUsers() ;
+     APIResponse<List<User>> getUsers() {
+        
+        APIResponse<List<User>> response = new APIResponse<>() ;
+        response.setCode(200);
+        response.setResult(userServices.getUsers());
+
+        return response;
      }
      
      @GetMapping("/{userId}")
