@@ -2,6 +2,7 @@ package net.codejava.Application.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import net.codejava.Application.dto.request.UserCreationRequest;
 import net.codejava.Application.dto.request.UserUpdateRequest;
 import net.codejava.Application.entity.User;
@@ -31,12 +32,12 @@ public class UserController {
         this.userServices = userServices;
     }
 
-     @PostMapping("")
-     User createUser(@RequestBody UserCreationRequest request) {
+     @PostMapping
+     User createUser(@RequestBody @Valid UserCreationRequest request) {
         return userServices.createRequest(request) ;
      } 
 
-     @GetMapping("")
+     @GetMapping
      List<User> getUsers() {
       return userServices.getUsers() ;
      }
