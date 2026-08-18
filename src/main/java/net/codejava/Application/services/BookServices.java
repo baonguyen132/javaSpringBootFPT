@@ -1,13 +1,13 @@
-package net.codejava.Application.identityservices.services;
+package net.codejava.Application.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import net.codejava.Application.identityservices.dto.request.BookCreationRequest;
-import net.codejava.Application.identityservices.entity.Book;
-import net.codejava.Application.identityservices.repository.BookRepository;
+import net.codejava.Application.dto.request.BookCreationRequest;
+import net.codejava.Application.entity.Book;
+import net.codejava.Application.repository.BookRepository;
 
 @Service
 public class BookServices {

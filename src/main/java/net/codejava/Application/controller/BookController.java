@@ -3,9 +3,10 @@ package net.codejava.Application.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.codejava.Application.identityservices.dto.request.BookCreationRequest;
-import net.codejava.Application.identityservices.entity.Book;
-import net.codejava.Application.identityservices.services.BookServices;
+import net.codejava.Application.dto.request.BookCreationRequest;
+import net.codejava.Application.entity.Book;
+import net.codejava.Application.services.BookServices;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 

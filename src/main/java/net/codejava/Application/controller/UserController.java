@@ -2,10 +2,11 @@ package net.codejava.Application.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import net.codejava.Application.identityservices.dto.request.UserCreationRequest;
-import net.codejava.Application.identityservices.dto.request.UserUpdateRequest;
-import net.codejava.Application.identityservices.entity.User;
-import net.codejava.Application.identityservices.services.UserServices;
+import net.codejava.Application.dto.request.UserCreationRequest;
+import net.codejava.Application.dto.request.UserUpdateRequest;
+import net.codejava.Application.entity.User;
+import net.codejava.Application.services.UserServices;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

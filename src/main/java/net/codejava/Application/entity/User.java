@@ -1,4 +1,4 @@
-package net.codejava.Application.identityservices.entity;
+package net.codejava.Application.entity;
 
 import java.time.LocalDate;
 
