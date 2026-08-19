@@ -2,7 +2,11 @@ package net.codejava.Application.exception;
 
 public enum ErrorCode {
 
-    USER_EXISTS(1001, "User already exists");
+    USER_EXISTS(1001, "User already exists"),
+    UNCATEGRORIZED_EXCEPTION(9999, "Uncategorized exception"),
+    USER_VALIDATION(1002, "User validation failed"),
+    PASSWORD_VALIDATION(1003, "Password validation failed"),
+    INVALID_KEY(1004, "Invalid key");
 
     private int code ;
     private String message ;

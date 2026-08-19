@@ -10,12 +10,12 @@ import net.codejava.Application.dto.request.APIResponse;
 @ControllerAdvice
 public class GlobalExceptionhandler {
 
-    @ExceptionHandler(value = RuntimeException.class)
+    @ExceptionHandler(value = Exception.class)
     ResponseEntity<APIResponse<String>> handlingRuntimeException(RuntimeException e) {
 
         APIResponse<String> response = new APIResponse<>() ;
-        response.setCode(400);
-        response.setMessage(e.getMessage());
+        response.setCode(ErrorCode.UNCATEGRORIZED_EXCEPTION.getCode());
+        response.setMessage(ErrorCode.UNCATEGRORIZED_EXCEPTION.getMessage());
 
         return ResponseEntity.badRequest().body(response);
     }
@@ -33,8 +33,22 @@ public class GlobalExceptionhandler {
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    ResponseEntity<String> handlingMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        return ResponseEntity.badRequest().body(e.getFieldError().getDefaultMessage()) ;
+    ResponseEntity<APIResponse<String>> handlingMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        
+        String enumkey = e.getFieldError().getDefaultMessage();
+        ErrorCode errorCode = ErrorCode.INVALID_KEY ;
+
+        try {
+            errorCode = ErrorCode.valueOf(enumkey) ;
+        }
+        catch (IllegalArgumentException ex) {
+        }
+
+        APIResponse<String> response = new APIResponse<>() ;
+        response.setCode(errorCode.getCode());
+        response.setMessage(errorCode.getMessage());
+
+        return ResponseEntity.badRequest().body(response) ;
     }
     
 }
