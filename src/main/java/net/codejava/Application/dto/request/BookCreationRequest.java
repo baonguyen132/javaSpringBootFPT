@@ -1,31 +1,18 @@
 package net.codejava.Application.dto.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class BookCreationRequest {
-    private String name ;
-    private String author ;
-    private String publisher ;
-
-    public String getName() {
-        return name;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
+    String name ;
+    String author ;
+    String publisher ;
 }

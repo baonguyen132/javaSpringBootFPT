@@ -2,27 +2,19 @@ package net.codejava.Application.dto.request;
 
 import java.time.LocalDate;
 
-public class UserUpdateRequest {
-    private String name;
-    private String password ;
-    private LocalDate dob ;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    public LocalDate getDob() {
-        return dob;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
+@Builder
+public class UserUpdateRequest {
+    String name;
+    String password ;
+    LocalDate dob ;
+
 }

@@ -2,29 +2,21 @@ package net.codejava.Application.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class APIResponse <T> {
-    private int code ;
-    private String message ;
-    private T result ;
-
-    public int getCode() {
-        return code;
-    }
-    public String getMessage() {
-        return message;
-    }
-    public T getResult() {
-        return result;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-    public void setMessage(String message) {
-        this.message = message;
-    }
-    public void setResult(T result) {
-        this.result = result;
-    }
+    int code ;
+    String message ;
+    T result ;
 }

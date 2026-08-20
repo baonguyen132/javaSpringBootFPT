@@ -20,7 +20,7 @@ public class UserCreationRequest {
     @Size(min = 3,max = 50, message = "USER_VALIDATION")
     String username ;
 
-    @Size(min = 8,max = 100, message = "PASWORD_VALIDATION")
+    @Size(min = 8,max = 100, message = "PASSWORD_VALIDATION")
     String password ;
     LocalDate dob ;
 }
