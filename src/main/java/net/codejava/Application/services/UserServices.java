@@ -12,10 +12,14 @@ import net.codejava.Application.exception.AppException;
 import net.codejava.Application.exception.ErrorCode;
 import net.codejava.Application.repository.UserRepository;
 
+import net.codejava.Application.mapper.UserMapper ;
+
 @Service
 public class UserServices {
     @Autowired
     private UserRepository userRepository ;
+    @Autowired
+    private UserMapper userMapper ; 
 
     public UserServices(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -23,15 +27,18 @@ public class UserServices {
 
     public User createRequest(UserCreationRequest request) {
 
-        User user = new User() ;
-
+        System.out.println(request.getName());
         if (userRepository.existsByUsername(request.getUsername()))
             throw new RuntimeException("Username already exists");
+        
+        User user = userMapper.toUser(request) ;
+        System.out.println(user.toString());
 
-        user.setName(request.getName());
-        user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword());
-        user.setDob(request.getDob());
+        // User user = new User() ;
+        // user.setName(request.getName());
+        // user.setUsername(request.getUsername());
+        // user.setPassword(request.getPassword());
+        // user.setDob(request.getDob());
 
         return userRepository.save(user);
 
@@ -49,9 +56,11 @@ public class UserServices {
     public User updateUser(UserUpdateRequest request, String userId) {
         User user = getUser(userId) ;
 
-        user.setName(request.getName());
-        user.setPassword(request.getPassword());
-        user.setDob(request.getDob());
+        userMapper.userUpdate(request, user);
+
+        // user.setName(request.getName());
+        // user.setPassword(request.getPassword());
+        // user.setDob(request.getDob());
 
         return userRepository.save(user);
     }
