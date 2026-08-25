@@ -7,6 +7,5 @@ import net.codejava.Application.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
-
     boolean existsByUsername(String username);
 }
