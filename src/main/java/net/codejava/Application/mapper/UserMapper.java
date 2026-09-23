@@ -12,8 +12,5 @@ public interface UserMapper {
 
     User toUser(UserCreationRequest request);
 
-    void userUpdate(
-            UserUpdateRequest request,
-            @MappingTarget User user
-    );
+    void userUpdate(UserUpdateRequest request, @MappingTarget User user);
 }

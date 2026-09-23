@@ -3,6 +3,8 @@ package net.codejava.Application.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import net.codejava.Application.dto.request.UserCreationRequest;
@@ -32,13 +34,8 @@ public class UserServices {
             throw new RuntimeException("Username already exists");
         
         User user = userMapper.toUser(request) ;
-        System.out.println(user.toString());
-
-        // User user = new User() ;
-        // user.setName(request.getName());
-        // user.setUsername(request.getUsername());
-        // user.setPassword(request.getPassword());
-        // user.setDob(request.getDob());
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10) ;
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         return userRepository.save(user);
 
