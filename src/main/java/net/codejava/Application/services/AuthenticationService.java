@@ -1,25 +1,29 @@
 package net.codejava.Application.services;
 
-import com.nimbusds.jose.JWSAlgorithm;
-import com.nimbusds.jose.JWSHeader;
-import com.nimbusds.jose.JWSObject;
-import com.nimbusds.jose.Payload;
+import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
+import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import net.codejava.Application.dto.request.AuthenticationRequest;
+import net.codejava.Application.dto.request.IntrospectRequest;
 import net.codejava.Application.dto.response.AuthenticationResponse;
+import net.codejava.Application.dto.response.IntrospectResponse;
 import net.codejava.Application.entity.User;
 import net.codejava.Application.exception.AppException;
 import net.codejava.Application.exception.ErrorCode;
 import net.codejava.Application.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -32,7 +36,8 @@ public class AuthenticationService
     UserRepository userRepository ;
 
     @NonFinal
-    protected  static final String SIGNER_KEY = "yzKGm9S4n5T2VC0HaJ4IGcz1LWlI90FhCWAtw3vST7Z7zoASXzMMMvnlVdTYFM8lSLyz75jjAXYfHWfzSnHcckutdyGMsxHAtt30fzk2yPiRNnDfE7B2zTfewW2Uj8hqPVRB5jXA4LXOTUx0Q71UQf0DeFHDGNnTjgeoWYnetvMYEeJAPjKBIdzTmBez2kK22BLfrKE3w4xASDfbDgRpXjFWsRKG5hp4m3ZVRTCqAzOYJbUwzHqqPzMoBGAs1rRK" ;
+    @Value("${jwt.signerKey}")
+    protected String SIGNER_KEY;
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         User user = userRepository.findByUsername(request.getUsername())
@@ -50,6 +55,25 @@ public class AuthenticationService
                 .token(token)
                 .authenticated(true)
                 .build() ;
+
+    }
+
+    public IntrospectResponse introspect(IntrospectRequest request) {
+        String token = request.getToken() ;
+
+        try {
+            JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes()) ;
+            SignedJWT signedJWT = SignedJWT.parse(token) ;
+
+            Date expityTime = signedJWT.getJWTClaimsSet().getExpirationTime() ;
+
+
+            var verified = signedJWT.verify(verifier) ;
+
+            return  IntrospectResponse.builder().valid(verified && expityTime.after(new Date())).build();
+        } catch (JOSEException | ParseException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
